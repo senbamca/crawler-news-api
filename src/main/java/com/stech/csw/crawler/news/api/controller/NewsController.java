@@ -19,28 +19,38 @@ public class NewsController {
     @Autowired
     NewsRepository newsRepository;
 
-    @GetMapping("/notes")
+    @GetMapping("/news")
     public List<News> getAllNotes() {
         return newsRepository.findAll();
     }
 
-    @PostMapping("/notes")
+    @PostMapping("/news")
     public News createNote(@Valid @RequestBody News news) {
         return newsRepository.save(news);
     }
 
-    @GetMapping("/notes/{id}")
+    @GetMapping("/news/{id}")
     public News getNoteById(@PathVariable(value = "id") Long noteId) {
         return newsRepository.findById(noteId)
-                .orElseThrow(() -> new ResourceNotFoundException("Note", "id", noteId));
+                .orElseThrow(() -> new ResourceNotFoundException("News", "id", noteId));
     }
 
-    @PutMapping("/notes/{id}")
-    public News updateNote(@PathVariable(value = "id") Long noteId,
+    @GetMapping("/news/latest")
+    public List<News> getNewsByTitle() {
+        return newsRepository.sortByCreatedTime();
+    }
+
+    @GetMapping("/news/search/{content}")
+    public List<News> getNewsByKeyword(@PathVariable(value = "content") String content) {
+        return newsRepository.search(content);
+    }
+
+    @PutMapping("/news/{id}")
+    public News updateNote(@PathVariable(value = "id") Long newsId,
                            @Valid @RequestBody News newsDetails) {
 
-        News news = newsRepository.findById(noteId)
-                .orElseThrow(() -> new ResourceNotFoundException("Note", "id", noteId));
+        News news = newsRepository.findById(newsId)
+                .orElseThrow(() -> new ResourceNotFoundException("News", "id", newsId));
 
         news.setTitle(newsDetails.getTitle());
         news.setContent(newsDetails.getContent());
@@ -49,10 +59,10 @@ public class NewsController {
         return updatedNews;
     }
 
-    @DeleteMapping("/notes/{id}")
-    public ResponseEntity<?> deleteNote(@PathVariable(value = "id") Long noteId) {
-        News news = newsRepository.findById(noteId)
-                .orElseThrow(() -> new ResourceNotFoundException("Note", "id", noteId));
+    @DeleteMapping("/news/{id}")
+    public ResponseEntity<?> deleteNote(@PathVariable(value = "id") Long newsId) {
+        News news = newsRepository.findById(newsId)
+                .orElseThrow(() -> new ResourceNotFoundException("News", "id", newsId));
 
         newsRepository.delete(news);
 
