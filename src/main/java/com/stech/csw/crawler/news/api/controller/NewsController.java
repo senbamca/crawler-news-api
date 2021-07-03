@@ -1,11 +1,10 @@
 package com.stech.csw.crawler.news.api.controller;
 
 
-import com.stech.csw.crawler.news.api.Repository.NewsRepository;
+import com.stech.csw.crawler.news.api.repository.NewsRepository;
 import com.stech.csw.crawler.news.api.exception.ResourceNotFoundException;
 import com.stech.csw.crawler.news.api.model.News;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -36,7 +35,7 @@ public class NewsController {
     }
 
     @GetMapping("/news/latest")
-    public List<News> getNewsByTitle() {
+    public List<News> getLatestNews() {
         return newsRepository.sortByCreatedTime();
     }
 
