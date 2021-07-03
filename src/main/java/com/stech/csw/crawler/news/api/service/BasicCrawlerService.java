@@ -8,6 +8,8 @@ import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import edu.uci.ics.crawler4j.url.WebURL;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,8 +74,10 @@ public class BasicCrawlerService extends WebCrawler {
             String html = htmlParseData.getHtml();
             Set<WebURL> links = htmlParseData.getOutgoingUrls();
 
-            logger.info("Title {}", htmlParseData.getTitle());
+            Document document = Jsoup.parse(html);
 
+            logger.info("Title {}", htmlParseData.getTitle());
+            logger.info("Text Data {}",document.body().text());
             logger.info("Text length: {}", text.length());
             logger.debug("Html length: {}", html.length());
             logger.info("Number of outgoing links: {}", links.size());

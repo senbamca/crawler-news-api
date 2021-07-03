@@ -12,7 +12,8 @@ import java.util.List;
 public interface NewsRepository extends JpaRepository<News, Long> {
 
     @Query("SELECT n FROM News n WHERE n.title LIKE %?1%"
-            + " OR n.content LIKE %?1%")
+            + " OR n.content LIKE %?1%"
+            + " OR n.link LIKE %?1%")
     List<News> search(String keyword);
 
 
