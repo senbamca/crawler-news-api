@@ -45,7 +45,7 @@ public class NewsController {
         return newsRepository.search(content);
     }
 
-    @PutMapping("/news/{id}")
+    /*@PutMapping("/news/{id}")
     public News updateNote(@PathVariable(value = "id") Long newsId,
                            @Valid @RequestBody News newsDetails) {
 
@@ -57,9 +57,9 @@ public class NewsController {
 
         News updatedNews = newsRepository.save(news);
         return updatedNews;
-    }
+    }*/
 
-    @DeleteMapping("/news/{id}")
+   /* @DeleteMapping("/news/{id}")
     public ResponseEntity<?> deleteNote(@PathVariable(value = "id") Long newsId) {
         News news = newsRepository.findById(newsId)
                 .orElseThrow(() -> new ResourceNotFoundException("News", "id", newsId));
@@ -67,5 +67,5 @@ public class NewsController {
         newsRepository.delete(news);
 
         return ResponseEntity.ok().build();
-    }
+    }*/
 }
