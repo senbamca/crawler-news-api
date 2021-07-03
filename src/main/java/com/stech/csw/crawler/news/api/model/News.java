@@ -12,7 +12,7 @@ import java.util.Date;
 @Entity
 @Table(name = "news")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
+@JsonIgnoreProperties(value = {"createdAt", "updatedAt", "createdBy", "updatedBy"},
         allowGetters = true)
 public class News {
     @Id
@@ -29,8 +29,8 @@ public class News {
     @NotBlank
     private String source;
 
-    @NotBlank
-    @Column(columnDefinition="TEXT")
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
     private String content;
 
     @Column(nullable = false, updatable = false)
@@ -91,13 +91,17 @@ public class News {
 
     public String getLink() {return link;}
 
-    public void setLink() {this.link = link;}
+    public void setLink(String link) {this.link = link;}
 
     public String getSource() {return source;}
 
-    public void setSource() {this.source = source;}
+    public void setSource(String source) {this.source = source;}
 
     public String getCreatedBy() {return createdBy;}
+
+    public void setCreatedBy(String name){this.createdBy = name;}
+
+    public void setUpdatedBy(String name){this.updatedBy = name;}
 
     public String getUpdatedBy() {return updatedBy;}
 
