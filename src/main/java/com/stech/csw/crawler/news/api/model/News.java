@@ -20,18 +20,23 @@ public class News {
     private Long id;
 
     @NotBlank
-    @Column(columnDefinition="TEXT")
+    @Column(nullable = false, columnDefinition="TEXT")
     private String title;
 
     @NotBlank
+    @Column(nullable = false)
     private String link;
 
     @NotBlank
     private String source;
 
     @Lob
+    @Column(nullable = false)
     @Basic(fetch = FetchType.LAZY)
     private String content;
+
+    @Column(nullable = false)
+    private Integer rank;
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -48,6 +53,11 @@ public class News {
 
     @Column(columnDefinition="varchar(6) default 'API'")
     private String updatedBy;
+
+    public News() {
+        this.source = "WEB";
+        this.createdBy = "API";
+    }
 
     public Long getId() {
         return id;
@@ -105,4 +115,11 @@ public class News {
 
     public String getUpdatedBy() {return updatedBy;}
 
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
 }

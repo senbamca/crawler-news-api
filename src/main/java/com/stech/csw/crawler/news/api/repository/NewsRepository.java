@@ -13,10 +13,11 @@ public interface NewsRepository extends JpaRepository<News, Long> {
 
     @Query("SELECT n FROM News n WHERE n.title LIKE %?1%"
             + " OR n.content LIKE %?1%"
-            + " OR n.link LIKE %?1%")
+            + " OR n.link LIKE %?1% ORDER BY createdAt DESC")
     List<News> search(String keyword);
 
+    @Query("SELECT n FROM News n WHERE n.rank = ?1 ORDER BY rank DESC")
+    List<News> findByRank(Integer rank);
 
-    @Query("SELECT n FROM News n ORDER BY createdAt DESC")
-    List<News> sortByCreatedTime();
+    News findByTitleAndLink(String title, String link);
 }

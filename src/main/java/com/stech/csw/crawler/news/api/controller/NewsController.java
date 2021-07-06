@@ -5,7 +5,10 @@ import com.stech.csw.crawler.news.api.repository.NewsRepository;
 import com.stech.csw.crawler.news.api.exception.ResourceNotFoundException;
 import com.stech.csw.crawler.news.api.model.News;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.HandlerMapping;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -36,7 +39,12 @@ public class NewsController {
 
     @GetMapping("/news/latest")
     public List<News> getLatestNews() {
-        return newsRepository.sortByCreatedTime();
+        return newsRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+    }
+
+    @GetMapping("/news/trending/{rank}")
+    public List<News> getTrendingNews(@PathVariable(value = "rank") Integer rank) {
+        return newsRepository.findByRank(rank);
     }
 
     @GetMapping("/news/search/{content}")

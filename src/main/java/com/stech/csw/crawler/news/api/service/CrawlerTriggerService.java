@@ -11,6 +11,7 @@ import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +26,18 @@ public class CrawlerTriggerService {
 
     @Autowired
     NewsTransformar newsTransformar;
+
+    @Value("#{'${cramler.news.api.crawler1.domains}'.split(',')}")
+    private List<String> crawler1Domains;
+
+    @Value("#{'${cramler.news.api.crawler2.domains}'.split(',')}")
+    private List<String> crawler2Domains;
+
+    @Value("#{'${cramler.news.api.crawler1.seedurls}'.split(',')}")
+    private List<String> crawler1SeedUrls;
+
+    @Value("#{'${cramler.news.api.crawler2.seedurls}'.split(',')}")
+    private List<String> crawler2SeedUrls;
 
     public void startCrawler() throws Exception {
         // The folder where intermediate crawl data is stored (e.g. list of urls that are extracted from previously
@@ -57,17 +70,26 @@ public class CrawlerTriggerService {
         CrawlController controller1 = new CrawlController(config1, pageFetcher1, robotstxtServer);
         CrawlController controller2 = new CrawlController(config2, pageFetcher2, robotstxtServer);
 
-        List<String> crawler1Domains = ImmutableList.of("https://www.ics.uci.edu/", "https://www.cnn.com/");
-        List<String> crawler2Domains = ImmutableList.of("https://en.wikipedia.org/");
+        //List<String> crawler1Domains = ImmutableList.of("https://www.ics.uci.edu/", "https://www.cnn.com/");
+        //List<String> crawler2Domains = ImmutableList.of("https://en.wikipedia.org/");
 
-        controller1.addSeed("https://www.ics.uci.edu/");
+        /*controller1.addSeed("https://www.ics.uci.edu/");
         controller1.addSeed("https://www.cnn.com/");
         controller1.addSeed("https://www.ics.uci.edu/~lopes/");
         controller1.addSeed("https://www.cnn.com/POLITICS/");
 
         controller2.addSeed("https://en.wikipedia.org/wiki/Main_Page");
         controller2.addSeed("https://en.wikipedia.org/wiki/Obama");
-        controller2.addSeed("https://en.wikipedia.org/wiki/Bing");
+        controller2.addSeed("https://en.wikipedia.org/wiki/Bing");*/
+
+        for (String url :crawler1SeedUrls){
+            controller1.addSeed(url);
+        }
+        for (String url :crawler2SeedUrls){
+            controller2.addSeed(url);
+        }
+
+
 
         //Initiate
         CrawlController.WebCrawlerFactory<BasicCrawlerService> factory1 = () -> new BasicCrawlerService(crawler1Domains, newsRepository, newsTransformar);

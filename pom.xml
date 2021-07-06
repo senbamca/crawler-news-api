@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.stech.csw</groupId>
-	<artifactId>crawler.news.api</artifactId>
+	<artifactId>crawler-news-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>crawler.news.api</name>
+	<name>crawler-news-api</name>
 	<description>News Crawler Application API</description>
 	<properties>
 		<java.version>11</java.version>

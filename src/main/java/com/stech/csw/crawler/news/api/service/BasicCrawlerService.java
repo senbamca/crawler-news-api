@@ -64,32 +64,31 @@ public class BasicCrawlerService extends WebCrawler {
         int parentDocid = page.getWebURL().getParentDocid();
 
         logger.debug("Docid: {}", docid);
-        logger.info("URL: {}", url);
+        logger.info("Start Page/URL: {}", url);
         logger.debug("Docid of parent page: {}", parentDocid);
 
         if (page.getParseData() instanceof HtmlParseData) {
             HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
-
-            String text = htmlParseData.getText();
-            String html = htmlParseData.getHtml();
-            Set<WebURL> links = htmlParseData.getOutgoingUrls();
-
-            Document document = Jsoup.parse(html);
-
-            logger.info("Title {}", htmlParseData.getTitle());
-            logger.info("Text Data {}",document.body().text());
-            logger.info("Text length: {}", text.length());
-            logger.debug("Html length: {}", html.length());
-            logger.info("Number of outgoing links: {}", links.size());
-
             //Transform & Persist
             News news = newsTransformar.transformToNews(page);
-            if (null != news) {
+            if (null != news && !isExits(news)) {
                 newsRepository.save(news);
             }
         }
+        logger.debug("Page completed");
+    }
 
-        logger.debug("=============");
+    /**
+     *
+     * @param news
+     * @return
+     */
+    private boolean isExits(News news){
+        News exits = newsRepository.findByTitleAndLink(news.getTitle(), news.getLink());
+        if (exits != null){
+            logger.warn("News Exits! with Title {} Link {}", news.getTitle(), news.getLink());
+        }
+        return exits != null ? true : false;
     }
 
 }
