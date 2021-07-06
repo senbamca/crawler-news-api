@@ -5,6 +5,7 @@ import com.stech.csw.crawler.news.api.repository.NewsRepository;
 import com.stech.csw.crawler.news.api.exception.ResourceNotFoundException;
 import com.stech.csw.crawler.news.api.model.News;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,9 @@ public class NewsController {
 
     @Autowired
     NewsRepository newsRepository;
+
+    @Value("${cramler.news.api.trending.rank}")
+    private Integer rank;
 
     @GetMapping("/news")
     public List<News> getAllNotes() {
@@ -42,8 +46,8 @@ public class NewsController {
         return newsRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
     }
 
-    @GetMapping("/news/trending/{rank}")
-    public List<News> getTrendingNews(@PathVariable(value = "rank") Integer rank) {
+    @GetMapping("/news/trending")
+    public List<News> getTrendingNews() {
         return newsRepository.findByRank(rank);
     }
 

@@ -39,6 +39,9 @@ public class CrawlerTriggerService {
     @Value("#{'${cramler.news.api.crawler2.seedurls}'.split(',')}")
     private List<String> crawler2SeedUrls;
 
+    @Value("${cramler.news.api.max.fetch.pages}")
+    private Integer maxPages;
+
     public void startCrawler() throws Exception {
         // The folder where intermediate crawl data is stored (e.g. list of urls that are extracted from previously
         // fetched pages and need to be crawled later).
@@ -56,8 +59,8 @@ public class CrawlerTriggerService {
         config2.setPolitenessDelay(1000);
 
         //Fetch limit
-        config1.setMaxPagesToFetch(50);
-        config2.setMaxPagesToFetch(30);
+        config1.setMaxPagesToFetch(maxPages);
+        config2.setMaxPagesToFetch(maxPages);
 
         // We will use different PageFetchers for the two crawlers.
         PageFetcher pageFetcher1 = new PageFetcher(config1);

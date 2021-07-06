@@ -1,6 +1,7 @@
 package com.stech.csw.crawler.news.api.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -14,6 +15,7 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt", "createdBy", "updatedBy"},
         allowGetters = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
