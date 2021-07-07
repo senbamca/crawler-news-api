@@ -26,17 +26,17 @@ public class NewsController {
     private Integer rank;
 
     @GetMapping("/news")
-    public List<News> getAllNotes() {
+    public List<News> getAllNews() {
         return newsRepository.findAll();
     }
 
     @PostMapping("/news")
-    public News createNote(@Valid @RequestBody News news) {
+    public News createNews(@Valid @RequestBody News news) {
         return newsRepository.save(news);
     }
 
     @GetMapping("/news/{id}")
-    public News getNoteById(@PathVariable(value = "id") Long noteId) {
+    public News getNewsById(@PathVariable(value = "id") Long noteId) {
         return newsRepository.findById(noteId)
                 .orElseThrow(() -> new ResourceNotFoundException("News", "id", noteId));
     }
@@ -57,7 +57,7 @@ public class NewsController {
     }
 
     /*@PutMapping("/news/{id}")
-    public News updateNote(@PathVariable(value = "id") Long newsId,
+    public News updateNews(@PathVariable(value = "id") Long newsId,
                            @Valid @RequestBody News newsDetails) {
 
         News news = newsRepository.findById(newsId)
@@ -71,7 +71,7 @@ public class NewsController {
     }*/
 
    /* @DeleteMapping("/news/{id}")
-    public ResponseEntity<?> deleteNote(@PathVariable(value = "id") Long newsId) {
+    public ResponseEntity<?> deleteNews(@PathVariable(value = "id") Long newsId) {
         News news = newsRepository.findById(newsId)
                 .orElseThrow(() -> new ResourceNotFoundException("News", "id", newsId));
 

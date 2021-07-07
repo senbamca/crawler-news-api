@@ -73,18 +73,6 @@ public class CrawlerTriggerService {
         CrawlController controller1 = new CrawlController(config1, pageFetcher1, robotstxtServer);
         CrawlController controller2 = new CrawlController(config2, pageFetcher2, robotstxtServer);
 
-        //List<String> crawler1Domains = ImmutableList.of("https://www.ics.uci.edu/", "https://www.cnn.com/");
-        //List<String> crawler2Domains = ImmutableList.of("https://en.wikipedia.org/");
-
-        /*controller1.addSeed("https://www.ics.uci.edu/");
-        controller1.addSeed("https://www.cnn.com/");
-        controller1.addSeed("https://www.ics.uci.edu/~lopes/");
-        controller1.addSeed("https://www.cnn.com/POLITICS/");
-
-        controller2.addSeed("https://en.wikipedia.org/wiki/Main_Page");
-        controller2.addSeed("https://en.wikipedia.org/wiki/Obama");
-        controller2.addSeed("https://en.wikipedia.org/wiki/Bing");*/
-
         for (String url :crawler1SeedUrls){
             controller1.addSeed(url);
         }

@@ -1,11 +1,14 @@
 package com.stech.csw.crawler.news.api.model;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 public class AuthenticationRequest implements Serializable {
 
-
+    @NotBlank
     private String username;
+
+    @NotBlank
     private String password;
 
     public String getUsername() {
