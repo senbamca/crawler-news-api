@@ -55,8 +55,8 @@ public class CrawlerTriggerService {
         config2.setCrawlStorageFolder(crawlStorageFolder + "/crawler2");
 
         //Time delay to fetch
-        config1.setPolitenessDelay(1000);
-        config2.setPolitenessDelay(1000);
+        //config1.setPolitenessDelay(1000);
+        //config2.setPolitenessDelay(1000);
 
         //Fetch limit
         config1.setMaxPagesToFetch(maxPages);
@@ -79,8 +79,6 @@ public class CrawlerTriggerService {
         for (String url :crawler2SeedUrls){
             controller2.addSeed(url);
         }
-
-
 
         //Initiate
         CrawlController.WebCrawlerFactory<BasicCrawlerService> factory1 = () -> new BasicCrawlerService(crawler1Domains, newsRepository, newsTransformar);

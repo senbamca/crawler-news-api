@@ -1,18 +1,14 @@
 package com.stech.csw.crawler.news.api.transformer;
 
 import com.stech.csw.crawler.news.api.model.News;
-import com.stech.csw.crawler.news.api.repository.NewsRepository;
-import com.stech.csw.crawler.news.api.service.BasicCrawlerService;
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

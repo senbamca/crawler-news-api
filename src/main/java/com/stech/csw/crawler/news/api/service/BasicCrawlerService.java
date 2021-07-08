@@ -53,7 +53,6 @@ public class BasicCrawlerService extends WebCrawler {
                 return true;
             }
         }
-
         return false;
     }
 

@@ -50,7 +50,7 @@ public class News {
     @LastModifiedDate
     private Date updatedAt;
 
-    @Column(updatable = false, columnDefinition="varchar(6) default 'API'")
+    @Column(nullable = false, updatable = false, columnDefinition="varchar(6) default 'API'")
     private String createdBy;
 
     @Column(columnDefinition="varchar(6) default 'API'")
